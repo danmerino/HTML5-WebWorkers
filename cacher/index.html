@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<title>Sync files using web workers</title>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+</head>
+<body>
+<script>
+
+
+var data = {fileName: 'HTML5', url: 'HTML5.png', type: 'image/png'}
+
+$(document).ready(function(){
+  var worker = new Worker('downloader.js');
+  worker.onmessage = function(e) {
+    console.log(e.data);
+    if((/^filesystem/).test(e.data)) {
+		$("#cache").attr("src", e.data);
+	}
+  };
+  worker.postMessage(data);
+ });
+</script>
+
+<img id="cache" />
+
+</body>
+</html>
