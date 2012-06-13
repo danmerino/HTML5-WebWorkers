@@ -1,6 +1,5 @@
   var worker = new SharedWorker('shared-worker.js', 'peer-scope')
   var log = $("#log");
-  var sendBark;
 
   $(document).ready(handleClick);
 
@@ -12,8 +11,6 @@
 
   function handleClick() {
     $('body').delegate('#multiplex', 'click', function() {
-	
-	  console.log('going to bark');
       worker.port.postMessage({ msg: '[' + (new Date()).toTimeString() + '] Ping-Pong!' });
 	
 	});
